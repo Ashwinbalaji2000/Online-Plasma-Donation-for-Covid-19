@@ -36,6 +36,7 @@ app.use('/api/controller', require('./routes/api/controller'));
 const datarouter = require('./routes/api/controller');
 const loginrouter = require('./routes/api/controller');
 const router = require('./routes/api/registerp');
+const routers = require('./routes/api/registerd');
 
 app.use('/gd', datarouter);
 
@@ -50,7 +51,7 @@ app.get('/rp',(req,res)=>
 res.render("RP"));
 
 app.post('http://localhost:5000/api/registerp',router)
-
+app.post('http://localhost:5000/api/registerd',routers)
 
 
 app.get('/rd',(req,res)=>

@@ -43,7 +43,7 @@ const DonorSchema = new Schema({
     },
     recoverydate:{
         type: Date,
-        required: true
+       
     },
     cn: {
         type:String,

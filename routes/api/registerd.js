@@ -17,7 +17,7 @@ router.post('/', [
     check('gender', 'GENDER Is Required').not().isEmpty(),
     check('Bloodgroup', 'BLOOD GROUP Is Required').not().isEmpty(),
     check('location', 'location  Is Required').not().isEmpty(),
-    check('recoverydate', 'recovery date Is Required').not().isEmpty(),
+    check('recoverydate', 'recovery date Is Required'),
     check('cn', 'COVID NEGATIVE Is Required').not().isEmpty() ,
 
 
@@ -56,7 +56,7 @@ router.post('/', [
         await donor.save(); 
        res.send('DONOR REGISTERED SUCCESFULLY');
       
-           
+      res.redirect('/')     
     }                                       
     catch(err){
      console.error(err.message);
