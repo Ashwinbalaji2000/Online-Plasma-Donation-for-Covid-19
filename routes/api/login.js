@@ -6,14 +6,15 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const Patient= require('../../models/Patient');
+const cookieparser = require ('cookie-parser');
 
 
 
-//@route GET api/login
+//@route POST api/login
 //@desc Authenticate patient and get token
 //@acces public
-router.post('/', [
-    check('adharnumber','please include a valid adhar number'),
+router.post('',auth,[
+    check('adharnumber','please include a valid adhar number').isLength({min: 6}),
    check('password', 'password is required ').exists()
 ], 
 async(req,res) => { 
@@ -36,6 +37,7 @@ async(req,res) => {
 
       const isMatch = await bcrypt.compare(password, patient.password);
       
+      
       if(!isMatch) {
        return res
        .status(400)
@@ -55,10 +57,14 @@ async(req,res) => {
         {expiresIn:360000},
         (err,token) => {
             if (err) throw err;
-            res.json({ token });
-        }
+           //res.json({ token });
+        res.cookie('jwt', {token} );
+        res.sendStatus(200)
+        
+    }
+
         );
-         
+    
   }
   catch(err){
    console.error(err.message);
@@ -66,8 +72,7 @@ async(req,res) => {
   }
    
 });
-
-
+ 
 
 
 module.exports = router;

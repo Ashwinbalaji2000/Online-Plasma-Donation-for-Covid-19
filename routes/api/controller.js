@@ -1,7 +1,6 @@
 const express = require('express');
 const datarouter = express.Router(); 
 const pregrouter = express.Router();
-const loginrouter = express.Router();
 const axios = require('axios');
 
 
@@ -9,6 +8,7 @@ const axios = require('axios');
 datarouter.get('',async (req,res) =>{
     try {
         const donorsAPI = await axios.get(`http://localhost:5000/api/getdata`);
+       
         res.render('gd',{ details : donorsAPI.data})      
     } catch (err) {
         if(err.response){

@@ -4,6 +4,7 @@ const bodyparser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
 const app = express();
+const cookieparser = require ('cookie-parser');
 
 
 // connect db
@@ -25,6 +26,7 @@ app.use( express.static( "img" ) );
 //Init Middleware
 app.use(express.json({extended: false}));
 
+app.use (cookieparser()); 
 //Define routes
 app.use('/api/registerp', require('./routes/api/registerp'));
 app.use('/api/registerd', require('./routes/api/registerd'));
@@ -37,11 +39,9 @@ const datarouter = require('./routes/api/controller');
 const loginrouter = require('./routes/api/controller');
 const router = require('./routes/api/registerp');
 const routers = require('./routes/api/registerd');
+const ploginrouter = require('./routes/api/login');
 
 app.use('/gd', datarouter);
-
-
-
 
 app.get('/',(req,res)=> {
 res.render('index')
@@ -52,7 +52,7 @@ res.render("RP"));
 
 app.post('http://localhost:5000/api/registerp',router)
 app.post('http://localhost:5000/api/registerd',routers)
-
+app.post('http://localhost:5000/api/login',ploginrouter)
 
 app.get('/rd',(req,res)=>
 res.render("RD"));
