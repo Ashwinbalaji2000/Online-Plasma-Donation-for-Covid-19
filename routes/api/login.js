@@ -13,7 +13,7 @@ const cookieparser = require ('cookie-parser');
 //@route POST api/login
 //@desc Authenticate patient and get token
 //@acces public
-router.post('',auth,[
+router.post('',[
     check('adharnumber','please include a valid adhar number').isLength({min: 6}),
    check('password', 'password is required ').exists()
 ], 
@@ -59,7 +59,10 @@ async(req,res) => {
             if (err) throw err;
            //res.json({ token });
         res.cookie('jwt', {token} );
-        res.sendStatus(200)
+      res.redirect('http://localhost:5000/gd')
+      //  const tokens= req.cookies.jwt.token;
+        //console.log(tokens);
+         //next();
         
     }
 
@@ -72,7 +75,6 @@ async(req,res) => {
   }
    
 });
- 
 
 
 module.exports = router;
